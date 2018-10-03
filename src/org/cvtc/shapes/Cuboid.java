@@ -1,17 +1,17 @@
 package org.cvtc.shapes;
 
-import javax.swing.JFrame;
-import javax.swing.JOptionPane;
-
-public class Cuboid extends Shape {
+public class Cuboid extends Shape implements Renderer {
 
 	// instantiate variables
 	private float width = (float) 0.0;
 	private float height = (float) 0.0;
 	private float depth = (float) 0.0;
+	private String message;
+	private String title;
 	
 	// constructor for Cuboid class
-	public Cuboid(float width, float height, float depth) {
+	public Cuboid(Dialog messageBox, float width, float height, float depth) {
+		super(messageBox); 
 		
 		// make sure dimensions given are not negative
 		if (width < 0 || height < 0 || depth < 0) {
@@ -70,14 +70,15 @@ public class Cuboid extends Shape {
 
 	// inherited method to display results
 	@Override
-	public void render() {
+	public int render() {
 		
-		JOptionPane.showMessageDialog(frame, 
-					"The dimensions of the Cuboid are as follows: Width = " + this.width + "; Height = " + this.height + "; Depth = " + this.depth + "; \n"
-					+ "The volume of the Cuboid is: " + volume() + "\n"
-					+ "The surface area of the Cuboid is: " + surfaceArea() + "\n");
+		message = "The dimensions of the Cuboid are as follows: Width = " + this.width + "; Height = " + this.height + "; Depth = " + this.depth + "; \n"
+				+ "The volume of the Cuboid is: " + volume() + "\n"
+				+ "The surface area of the Cuboid is: " + surfaceArea() + "\n";
+		title = "Cuboid";
 		
-		frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+		return super.getMessageBox().show(message, title);
+		
 	}
 	
 }

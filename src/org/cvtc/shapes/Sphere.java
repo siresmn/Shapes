@@ -1,15 +1,15 @@
 package org.cvtc.shapes;
 
-import javax.swing.JFrame;
-import javax.swing.JOptionPane;
-
-public class Sphere extends Shape {
+public class Sphere extends Shape implements Renderer {
 	
 	// instantiate radius variable
 	private float radius = (float) 0.0;
+	private String message;
+	private String title;
 
 	// constructor for Sphere class
-	public Sphere(float radius) {
+	public Sphere(Dialog messageBox, float radius) {
+		super(messageBox);
 		
 		// make sure dimensions given are not negative
 		if (radius < 0) {
@@ -44,14 +44,14 @@ public class Sphere extends Shape {
 
 	// inherited method to display results
 	@Override
-	public void render() {
+	public int render() {
 		
-			JOptionPane.showMessageDialog(frame, 
-					"The radius of the Sphere is: " + this.radius + "; \n"
-					+ "The volume of the Sphere is: " + volume() + "\n"
-					+ "The surface area of the Sphere is: " + surfaceArea() + "\n");
-			
-		frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+		message = "The radius of the Sphere is: " + this.radius + "; \n"
+				+ "The volume of the Sphere is: " + volume() + "\n"
+				+ "The surface area of the Sphere is: " + surfaceArea() + "\n";
+		title = "Sphere";
+
+		return super.getMessageBox().show(message, title);
 	}
 
 }
