@@ -1,16 +1,16 @@
 package org.cvtc.shapes;
 
-import javax.swing.JFrame;
-import javax.swing.JOptionPane;
-
-public class Cylinder extends Shape {
+public class Cylinder extends Shape implements Renderer {
 
 	// instantiate variables
 	private float radius = (float) 0.0;
 	private float height = (float) 0.0;
+	private String message;
+	private String title;
 	
 	// constructor for Cylinder class
-	public Cylinder(float radius, float height) {
+	public Cylinder(Dialog messageBox, float radius, float height) {
+		super(messageBox);
 		
 		// make sure dimensions given are not negative
 		if (radius < 0 || height < 0) {
@@ -57,14 +57,15 @@ public class Cylinder extends Shape {
 
 	// inherited method to display results
 	@Override
-	public void render() {
+	public int render() {
 		
-			JOptionPane.showMessageDialog(frame, 
-					"The dimensions of the Cylinder are as follows: Radius = " + this.radius + "; Height = " + this.height + "; \n"
-					+ "The volume of the Cylinder is: " + volume() + "\n"
-					+ "The surface area of the Cylinder is: " + surfaceArea() + "\n");
-		
-		frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+		message = "The dimensions of the Cylinder are as follows: Radius = " + this.radius + "; Height = " + this.height + "; \n"
+				+ "The volume of the Cylinder is: " + volume() + "\n"
+				+ "The surface area of the Cylinder is: " + surfaceArea() + "\n";
+		title = "Cylinder";
+
+		return super.getMessageBox().show(message, title);		
+
 	}
 
 }
